@@ -234,6 +234,7 @@ struct amlsd_host {
 	struct  mmc_request	*mrq;
 	struct  mmc_request	*mrq2;
 	spinlock_t	mrq_lock;
+	raw_spinlock_t	raw_mrq_lock;
 	int			cmd_is_stop;
 	enum aml_mmc_waitfor	xfer_step;
 	enum aml_mmc_waitfor	xfer_step_prev;
@@ -980,7 +981,7 @@ struct sd_emmc_config {
 	u32 blk_gap_ip:1;
 	/*[18]	  Spare,  ??? need check*/
 	u32 spare:1;
-	/*[19]	  Use this descriptor even if its owner bit is ???0???¡ì?¨¨.*/
+	/*[19]	  Use this descriptor even if its owner bit is ???0???ï¿½ï¿½?ï¿½ï¿½.*/
 	u32 ignore_owner:1;
 	/*[20]	  Check data strobe in HS400.*/
 	u32 chk_ds:1;
@@ -1007,7 +1008,7 @@ struct sd_emmc_status {
 	/*[8]	   TX data CRC error, for multiple block write,
 	any one of blocks CRC error. */
 	u32 txd_err:1;
-	/*[9]	   SD/eMMC controller doesn???¨º?¨¨t own descriptor.
+	/*[9]	   SD/eMMC controller doesn???ï¿½ï¿½?ï¿½ï¿½t own descriptor.
 	The owner bit is set cfg_ignore_owner to ignore this error.*/
 	u32 desc_err:1;
 	/*[10]	  Response CRC error.*/
@@ -1042,7 +1043,7 @@ struct sd_emmc_irq_en {
 	u32 rxd_err:8;
 	/*[8]	   TX data CRC error. */
 	u32 txd_err:1;
-	/*[9]	   SD/eMMC controller doesn???¨º?¨¨t own descriptor. */
+	/*[9]	   SD/eMMC controller doesn???ï¿½ï¿½?ï¿½ï¿½t own descriptor. */
 	u32 desc_err:1;
 	/*[10]	  Response CRC error.*/
 	u32 resp_err:1;
